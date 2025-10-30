@@ -1,2 +1,39 @@
 # 2025-cs-study
 cs 공부를 위한 저장소
+
+# 🧠 CS Study
+
+> 컴퓨터공학 핵심 개념을 정리하고, 기술 면접 대비를 위해 기록하는 저장소입니다.
+
+---
+
+## 📚 분류
+
+| 분야 | 링크 |
+|------|------|
+| 💻 운영체제 (OS) | [OS/](./OS) |
+| 🌐 네트워크 | [Network/](./Network) |
+| 🧮 자료구조 | [DataStructure/](./DataStructure) |
+| 🔢 알고리즘 | [Algorithm/](./Algorithm) |
+| 🗄️ 데이터베이스 | [Database/](./Database) |
+
+---
+
+## ✏️ 작성 규칙
+
+- 각 주제는 `.md` 파일로 작성합니다.  
+- 직접 이해한 내용을 정리하며, 핵심 키워드 중심으로 요약합니다.  
+- 예시 코드, 그림, 도식 등을 활용하여 시각화합니다.  
+- 참고한 자료가 있다면 하단에 출처를 명시합니다.
+
+---
+
+## 🗓️ 예시 진행 계획
+
+| 주차 | 주제 | 링크 |
+|------|------|------|
+| 1주차 | OS - 프로세스 vs 스레드 | [OS/Process-vs-Thread.md](./OS/Process-vs-Thread.md) |
+| 2주차 | 네트워크 - TCP/UDP | [Network/TCP-UDP.md](./Network/TCP-UDP.md) |
+| 3주차 | 자료구조 - 트리 | [DataStructure/Tree.md](./DataStructure/Tree.md) |
+| 4주차 | 알고리즘 - DFS/BFS | [Algorithm/DFS-BFS.md](./Algorithm/DFS-BFS.md) |
+| 5주차 | 데이터베이스 - 트랜잭션 | [Database/Transaction.md](./Database/Transaction.md) |
