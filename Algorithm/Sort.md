@@ -246,6 +246,82 @@ public class StableSelectionSort {
 ```
 
 ## 3. 삽입 정렬 (Insertion Sort)
+
+🔹 개념 요약
+
+삽입 정렬(Insertion Sort)은 두 번째 원소부터 시작하여, 해당 원소를 이미 정렬된 앞부분과 비교하여 올바른 위치에 삽입하며 정렬하는 알고리즘입니다.
+
+현재 원소를 정렬된 부분에 끼워 넣는(Insert) 방식
+
+필요한 경우에만 원소를 뒤로 밀어내어(Shift) 빈 공간을 확보하고 삽입
+
+데이터가 거의 정렬되어 있을수록 효율적인 O(n) 정렬
+
+
+🔹 동작 원리
+
+주어진 리스트의 **두 번째 원소(index 1)**부터 시작하여 마지막 원소까지 순회한다.
+
+현재 순회 중인 원소를 **'삽입할 값(key)'**으로 지정한다.
+
+key를 정렬된 앞쪽 부분의 원소들과 역순으로 비교한다.
+
+key보다 큰 원소는 key가 들어갈 자리를 만들기 위해 한 칸씩 오른쪽으로 밀어낸다(Shift).
+
+key보다 작거나 같은 원소를 만나거나 배열의 맨 앞에 도달하면 비교를 멈춘다.
+
+비교가 멈춘 위치에 key를 삽입한다.
+
+```
+public class InsertionSort {
+    public static void main(String[] args) {
+        int [] arr = new int[]{4,2,5,1};
+        System.out.println("변경 전");
+        System.out.println(Arrays.toString(arr));
+
+        for(int i=1; i<arr.length;i++){
+            int key = arr[i];
+            int j= i-1;
+            while(j>=0&& arr[j]>key){
+                arr[j+1] = arr[j];
+                j--;
+            }
+            arr[j+1]= key;
+            System.out.println(i+"라운드 후 결과");
+            System.out.println(Arrays.toString(arr));
+
+        }
+        System.out.println("정렬 후");
+        System.out.println(Arrays.toString(arr));
+    }
+}
+
+```
+<img width="137" height="225" alt="image" src="https://github.com/user-attachments/assets/db65691b-c8c8-4585-bb04-45c27c95e512" />
+
+
+| 구분 (Case) | 시간 복잡도 (Time Complexity) | 설명 (Explanation) |
+|-------------|------------------------------|------------------|
+| 최선 (Best) | O(n)                         | 이미 정렬된 상태인 경우, 비교만 n-1번 수행하고 교환(shift)은 거의 없어 선형 시간에 가까움. |
+| 평균 (Average) | O(n²)                        | 무작위 배열에서 비교 및 이동(shift) 횟수가 평균적으로 n²/4에 가까움. |
+| 최악 (Worst) | O(n²)                        | 역순으로 정렬된 상태인 경우, 매번 최대 n번의 비교 및 이동이 필요함. |
+
+
+
+🧩 삽입 정렬의 특징
+
+✅ 장점데이터가 거의 정렬되어 있을 경우 가장 빠르다 (O(n)).
+
+안정 정렬(Stable Sort)이다. (동일 값의 상대적 순서 유지)구현이 비교적 간단하다.
+
+추가 메모리가 거의 필요 없음 (제자리 정렬, O(1)).
+
+❌ 단점
+
+데이터의 크기가 클 경우 비효율적이다 (O(n²)).
+
+원소들을 밀어내는(shift) 과정 때문에 이동(move) 횟수가 많다.
+
 ## 4. 병합 정렬 (Merge Sort)
 ## 5. 퀵 정렬 (Quick Sort)
 ## 6. 힙 정렬 (Heap Sort)
