@@ -32,5 +32,5 @@ cs 공부를 위한 저장소
 
 | 주차 | 주제 | 링크 |
 |------|------|------|
-| 1주차 | 알고리즘 | [OS/Process-vs-Thread.md](./Algorithm) |
+| 1주차 | 알고리즘 | [Algorithm/](./Algorithm) |
 
