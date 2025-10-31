@@ -32,8 +32,5 @@ cs 공부를 위한 저장소
 
 | 주차 | 주제 | 링크 |
 |------|------|------|
-| 1주차 | OS - 프로세스 vs 스레드 | [OS/Process-vs-Thread.md](./OS/Process-vs-Thread.md) |
-| 2주차 | 네트워크 - TCP/UDP | [Network/TCP-UDP.md](./Network/TCP-UDP.md) |
-| 3주차 | 자료구조 - 트리 | [DataStructure/Tree.md](./DataStructure/Tree.md) |
-| 4주차 | 알고리즘 - DFS/BFS | [Algorithm/DFS-BFS.md](./Algorithm/DFS-BFS.md) |
-| 5주차 | 데이터베이스 - 트랜잭션 | [Database/Transaction.md](./Database/Transaction.md) |
+| 1주차 | 알고리즘 | [OS/Process-vs-Thread.md](./Algorithm) |
+
