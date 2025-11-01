@@ -323,5 +323,94 @@ public class InsertionSort {
 원소들을 밀어내는(shift) 과정 때문에 이동(move) 횟수가 많다.
 
 ## 4. 병합 정렬 (Merge Sort)
+
+> **Divide and Conquer (분할 정복)** 알고리즘의 대표적인 예시로,  
+> 배열을 반으로 계속 나누고, 각각을 정렬한 후 병합(merge)하는 방식의 정렬 알고리즘입니다.
+
+---
+
+### 📘 알고리즘 개념
+
+1. **분할 (Divide)**  
+   배열을 절반으로 계속 나눈다.
+2. **정복 (Conquer)**  
+   나눈 부분 배열들을 재귀적으로 정렬한다.
+3. **병합 (Combine)**  
+   정렬된 두 배열을 하나의 정렬된 배열로 합친다.
+
+예시  
+[5, 2, 8, 4, 1]
+→ [5, 2, 8] + [4, 1]
+→ [5] + [2, 8] + [4] + [1]
+→ [5] + [2, 8] + [4] + [1]
+→ [2, 5, 8] + [1, 4]
+→ [1, 2, 4, 5, 8]
+
+```
+public class MergeSort {
+    public static void mergeSort(int[] arr) {
+        if (arr.length <= 1) return; // base case
+
+        int mid = arr.length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[arr.length - mid];
+
+        // 배열 분할
+        for (int i = 0; i < mid; i++) left[i] = arr[i];
+        for (int i = mid; i < arr.length; i++) right[i - mid] = arr[i];
+
+        // 재귀 호출로 각각 정렬
+        mergeSort(left);
+        mergeSort(right);
+
+        // 병합
+        merge(arr, left, right);
+    }
+
+    private static void merge(int[] arr, int[] left, int[] right) {
+        int i = 0, j = 0, k = 0;
+
+        // 두 배열 비교하며 정렬된 상태로 병합
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) arr[k++] = left[i++];
+            else arr[k++] = right[j++];
+        }
+
+        // 남은 원소들 복사
+        while (i < left.length) arr[k++] = left[i++];
+        while (j < right.length) arr[k++] = right[j++];
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 8, 4, 1};
+        mergeSort(arr);
+        for (int n : arr) System.out.print(n + " ");
+    }
+}
+```
+
+
+
+ ⏱️ 시간 복잡도
+
+ | 구분               | 시간 복잡도     | 설명                    |
+| ---------------- | ---------- | --------------------- |
+| **최선 (Best)**    | O(n log n) | 항상 반씩 나누기 때문          |
+| **평균 (Average)** | O(n log n) | 모든 경우 동일한 구조          |
+| **최악 (Worst)**   | O(n log n) | 항상 일정한 재귀 깊이          |
+| **공간 복잡도**       | O(n)       | 보조 배열(left, right) 사용 |
+
+
+## 🧩 병합 정렬 (Merge Sort) 특징
+
+| 장점                  | 단점                  |
+| ------------------- | ------------------- |
+| 항상 O(n log n) 성능    | 추가 메모리 공간 필요 (O(n)) |
+| 안정 정렬 (Stable Sort) | 작은 데이터에서는 비효율적      |
+| 외부 정렬에 적합 (대용량 데이터) | 구현이 다소 복잡           |
+
+
+
+
 ## 5. 퀵 정렬 (Quick Sort)
 ## 6. 힙 정렬 (Heap Sort)
