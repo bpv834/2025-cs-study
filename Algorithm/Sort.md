@@ -413,4 +413,192 @@ public class MergeSort {
 
 
 ## 5. 퀵 정렬 (Quick Sort)
+
+🔹 개념 요약
+
+퀵 정렬(Quick Sort)은 분할 정복(Divide and Conquer) 방식을 이용한 정렬 알고리즘으로,
+하나의 원소를 피벗(pivot) 으로 선택하고,
+피벗을 기준으로 작은 값과 큰 값을 분할하여 각각을 재귀적으로 정렬하는 방식입니다.
+
+피벗보다 작은 값들은 왼쪽, 큰 값들은 오른쪽으로 재배치
+
+분할 후, 각 부분 배열에 대해 동일한 과정을 반복
+
+평균적으로 매우 빠르며, O(n log n) 의 시간 복잡도를 가짐
+
+다만 불안정 정렬(Unstable Sort) 이며, 최악의 경우 O(n²) 까지 느려질 수 있음
+
+🔹 동작 원리
+
+배열에서 피벗(pivot) 을 선택한다.
+
+피벗을 기준으로 작은 값은 왼쪽, 큰 값은 오른쪽으로 분할한다.
+
+피벗을 제외한 양쪽 부분 배열에 대해 재귀적으로 퀵 정렬을 수행한다.
+
+부분 배열의 길이가 1 이하가 되면 정렬이 완료된다.
+
+예시
+[5, 3, 8, 4, 2, 7, 1, 10]
+→ 피벗 5 선택
+→ [3, 4, 2, 1] | 5 | [8, 7, 10]
+→ [1, 2, 3, 4] + [5] + [7, 8, 10]
+→ [1, 2, 3, 4, 5, 7, 8, 10]
+
+```
+public class QuickSort {
+	
+	public static void sort(int[] a) {
+		m_pivot_sort(a, 0, a.length - 1);
+	}
+	
+	/**
+	 *  중간 피벗 선택 방식
+	 * @param a		정렬할 배열
+	 * @param lo	현재 부분배열의 왼쪽
+	 * @param hi	현재 부분배열의 오른쪽
+	 */
+	private static void m_pivot_sort(int[] a, int lo, int hi) {
+		
+		/*
+		 *  lo가 hi보다 크거나 같다면 정렬 할 원소가 
+		 *  1개 이하이므로 정렬하지 않고 return한다.
+		 */
+		if(lo >= hi) {
+			return;
+		}
+		
+		/*
+		 * 피벗을 기준으로 요소들이 왼쪽과 오른쪽으로 약하게 정렬 된 상태로
+		 * 만들어 준 뒤, 최종적으로 pivot의 위치를 얻는다.
+		 * 
+		 * 그리고나서 해당 피벗을 기준으로 왼쪽 부분리스트와 오른쪽 부분리스트로 나누어
+		 * 분할 정복을 해준다.
+		 * 
+		 * [과정]
+		 * 
+		 * Partitioning:
+		 *
+		 *      left part      a[(right + left)/2]      right part      
+		 * +---------------------------------------------------------+
+		 * |    element < pivot    |  pivot  |    element >= pivot   |
+		 * +---------------------------------------------------------+
+		 *    
+		 *    
+		 *  result After Partitioning:
+		 *  
+		 *         left part         a[hi]          right part
+		 * +---------------------------------------------------------+
+		 * |   element < pivot    |  pivot  |    element >= pivot    |
+		 * +---------------------------------------------------------+
+		 *       
+		 *       
+		 *  result : pivot = hi     
+		 *       
+		 *
+		 *  Recursion:
+		 *  
+		 * m_pivot_sort(a, lo, pivot)         m_pivot_sort(a, pivot + 1, hi)
+		 *  
+		 *         left part                           right part
+		 * +-----------------------+             +-----------------------+
+		 * |   element <= pivot    |             |    element > pivot    |
+		 * +-----------------------+             +-----------------------+
+		 * lo                pivot          pivot + 1                   hi
+		 * 
+		 */
+		int pivot = partition(a, lo, hi);	
+		
+		m_pivot_sort(a, lo, pivot);
+		m_pivot_sort(a, pivot + 1, hi);
+	}
+	
+	
+	
+	/**
+	 * pivot을 기준으로 파티션을 나누기 위한 약한 정렬 메소드
+	 * 
+	 * @param a		정렬 할 배열 
+	 * @param left	현재 배열의 가장 왼쪽 부분
+	 * @param right	현재 배열의 가장 오른쪽 부분
+	 * @return		최종적으로 위치한 피벗의 위치(hi)를 반환
+	 */
+	private static int partition(int[] a, int left, int right) {
+		
+		// lo와 hi는 각각 배열의 끝에서 1 벗어난 위치부터 시작한다.
+		int lo = left - 1;
+		int hi = right + 1;
+		int pivot = a[(left + right) / 2];		// 부분리스트의 중간 요소를 피벗으로 설정
+		
+ 
+		while(true) {
+			/*
+			 * 1 증가시키고 난 뒤의 lo 위치의 요소가 pivot보다 큰 요소를
+			 * 찾을 떄 까지 반복한다.
+			 */
+			do { 
+				lo++; 
+			} while(a[lo] < pivot);
+			
+			/*
+			 * 1 감소시키고 난 뒤의 hi 위치가 lo보다 크거나 같은 위치이면서
+			 * hi위치의 요소가 pivot보다 작은 요소를 찾을 떄 까지 반복한다.
+			 */
+			do {
+				hi--;
+			} while(a[hi] > pivot && lo <= hi);
+			
+			/*
+			 * 만약 hi가 lo보다 크지 않다면(엇갈린다면) swap하지 않고 hi를 리턴한다.
+			 */
+			if(lo >= hi) {
+				return hi;
+			}
+			
+			
+			// 교환 될 두 요소를 찾았으면 두 요소를 바꾼다.
+			swap(a, lo, hi);
+		}
+		
+	}
+	
+	private static void swap(int[] a, int i, int j) {
+		int temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
+	}
+	
+}
+
+```
+
+🧩 퀵 정렬의 특징
+
+✅ 장점
+
+특정 상태가 아닌 이상 평균 시간 복잡도는 NlogN이며, 다른 NlogN 알고리즘에 비해 대체적으로 속도가 매우 빠르다. 유사하게 NlogN 정렬 알고리즘 중 분할정복 방식인 merge sort에 비해 2~3배정도 빠르다
+
+추가적인 별도의 메모리를 필요로하지 않으며 재귀 호출 스택프레임에 의한 공간복잡도는 logN으로 메모리를 적게 소비한다.
+
+❌ 단점
+
+피벗 선택이 나쁘면 최악의 경우 O(n²)
+
+불안정 정렬(Unstable Sort) — 동일 값의 상대적 순서 유지 불가
+
+재귀 호출로 인한 스택 오버플로우 위험 존재
+
+| 구분 (Case)        | 시간 복잡도 (Time Complexity) | 설명 (Explanation)            |
+| ---------------- | ------------------------ | --------------------------- |
+| **최선 (Best)**    | O(n log n)               | 피벗이 균등하게 배열을 분할할 경우         |
+| **평균 (Average)** | O(n log n)               | 대부분의 경우 랜덤 피벗 선택 시 균형 분할    |
+| **최악 (Worst)**   | O(n²)                    | 이미 정렬된 배열 등 피벗이 한쪽으로 치우친 경우 |
+| **공간 복잡도**       | O(log n) ~ O(n)          | 재귀 호출 스택에 따라 다름             |
+
+최악의 상황을 해결하는 방법:
+
+중간 피벗이 선호되는 이유가 바로 이러한 이유 때문이다. 그러면 거의 정렬 된 배열이더라도 거의 중간지점에 가까운 위치에서 왼쪽 리스트와 오른쪽 리스트가 균형에 가까운 트리를 얻어낼 수 있기 때문이다. 
+
+출처 : https://st-lab.tistory.com/250
+
 ## 6. 힙 정렬 (Heap Sort)
